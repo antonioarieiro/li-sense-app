@@ -1,24 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import RouterComponent from "./_router/RouterComponent";
+import { LisenseProvider } from "./_context/LisenseProvider";
+import "../src/_assets/GlobalStyle.css";
 
+import "./tailwind.css";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <LisenseProvider>
+        <RouterComponent />
+      </LisenseProvider>
+    </>
   );
 }
 
