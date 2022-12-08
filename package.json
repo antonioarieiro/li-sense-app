@@ -1,6 +1,6 @@
 {
   "name": "li-sense-app",
-  "prox": "https://dev.li-sense.xyz/",
+  "proxy": "https://dev.li-sense.xyz/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -23,7 +23,7 @@
     "single-spa-react": "^4.3.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set PORT=8000 &&  react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

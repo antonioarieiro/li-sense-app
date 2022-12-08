@@ -6,7 +6,7 @@ import { data } from '../../FakeData'
 export default function Home() {
   const [products, setProducts] = React.useState([])
   React.useEffect(() => {
-     axios.get("https://dev.li-sense.xyz/api/v1/produtos/produtos?limit=50&offset=0",{headers: {"Access-Control-Allow-Origin": "*"}})
+     axios.get("https://dev.li-sense.xyz/api/v1/produtos/produtos?limit=50&offset=0")
     .then((res) => {
        setProducts(res.data.items);
     });
