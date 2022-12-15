@@ -12,14 +12,14 @@ export default function Header() {
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const [isUserLogin, setIsUserLogin] = useState(false)
-  const { user } = React.useContext(LisenseContext)
+  const { user, setCurrentSearch } = React.useContext(LisenseContext)
   let menuRef = useRef()
 
   useEffect(() => {
     let handler = e => {
       if (!menuRef.current.contains(e.target)) {
         setOpen(false)
-        console.log('menuRef.current')
+      
       }
     }
     document.addEventListener('mousedown', handler)
@@ -49,7 +49,7 @@ export default function Header() {
         <div className="col-search">
           <form action="#">
             <div className="search-box">
-              <input type="search" placeholder="Faça sua busca" />
+              <input type="search" placeholder="Faça sua busca" onChange={(event) => {setCurrentSearch(event.target.value)}}/>
               <button type="submit">
                 <i onClick={() => {
                   navigate('/search')

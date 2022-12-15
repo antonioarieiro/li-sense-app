@@ -3,11 +3,14 @@ import axios from 'axios'
 import { Components } from '../../_components/Components'
 import './Home.css'
 import { data } from '../../FakeData'
+import { useNavigate } from 'react-router-dom'
 export default function Home() {
   const [products, setProducts] = React.useState([])
+  const navigate = useNavigate();
   React.useEffect(() => {
      axios.get("https://dev.li-sense.xyz/api/v1/produtos/produtos?limit=50&offset=0")
     .then((res) => {
+
        setProducts(res.data.items);
     });
 
@@ -16,7 +19,7 @@ export default function Home() {
     <>
       <div className="container-home">
         <div className="">
-          <Components.Filters />
+         
         </div>
         <div className="cards">
           {
@@ -26,8 +29,12 @@ export default function Home() {
             ))
           }
         </div>
-        <button className="filter">Ver mais</button>
+        <button className="filter" onClick={() => {navigate('/search')}}>Ver mais</button>
       </div>
     </>
   )
 }
+
+/*
+ <Components.Filters />
+*/

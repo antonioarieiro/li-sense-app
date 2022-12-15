@@ -6,12 +6,13 @@ export default function Boleto() {
   const navigate = useNavigate();
   function funcaoB() {
     alert("Boleto Gerado e enviado para seu email!");
+    navigate('/profile')
   }
   return (
     <>
-      <form>
+      <div>
         <div className="container-boleto">
-          <form className="boleto">
+          <div className="boleto">
             <div className="container-form-boleto">
               <div className="titulo">
                 <span>Preencha as informações para gerar o seu boleto</span>
@@ -55,9 +56,9 @@ export default function Boleto() {
                 </button>
               </div>
             </div>
-          </form>
+          </div>
         </div>
-      </form>
+      </div>
     </>
   );
 }

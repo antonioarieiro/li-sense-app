@@ -1,35 +1,63 @@
 import React from 'react'
 import './product.css'
 import { RiStarSFill } from 'react-icons/ri'
+import LisenseContext from '../../_context/LisenseContext'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+export default function Product(props) {
+  const { search, addItemInCart, setCurrentProduct } = React.useContext(LisenseContext)
+  const { product } = props
+  const [owner, setOwner] = React.useState('')
+  const navigate = useNavigate()
+  React.useEffect(() => {
+    getOwner(product.id)
 
-export default function Product() {
+  },[])
+
+  const getOwner = async (id) => {
+    await axios.get(`https://dev.li-sense.xyz/api/v1/usuarios/${id}`).then((res) => {
+      setOwner(res.data.nome)
+      
+    })
+  }
+  const setProduct = (product) => {
+    setCurrentProduct(product);
+    navigate(`/product/${product.id}`);
+  };
+
   return (
     <>
-      <div className="product">
+   
+        <div className="product" key={product}>
         <div className="product-img">
-          <img src="https://images-americanas.b2w.io/produtos/01/00/img/4240755/6/4240755664G1.jpg" />
+          <img src={product.imagem_produto} />
         </div>
-        <div className="product-body">
+        <div className="product-body" onClick={() => { setProduct(product)}}>
           <div className="product-body-stars">
             <RiStarSFill />
             <RiStarSFill />
             <RiStarSFill />
             <RiStarSFill />
             <RiStarSFill />
-            <span>50 avaliações</span>
+            
           </div>
 
           <h2>
-            Smart TV LED 50" Semp 50RK8500 RokuUHD HDR Wifi Dual Band 4 Hdmi 1
-            USB
+           {product.nome}
           </h2>
-          <h3>Vendido por: Nikko BR</h3>
+          <h3>Vendido por:  {owner}</h3>
         </div>
         <div className="product-cart">
-          <h2>R$ 2.199,99</h2>
-          <button>Carrinho</button>
+          <h2>{product.preco},00 R$</h2>
+          <button onClick={() => { addItemInCart(product)}}>Adicionar ao Carrinho</button>
         </div>
       </div>
+     
+   
     </>
   )
 }
+
+/*
+<span>50 avaliações</span>
+*/

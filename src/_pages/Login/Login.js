@@ -1,15 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./Login.css";
-import Logocentral from "../../_assets/img/logoredonda.png";
-import LisenseContext from "../../_context/LisenseContext";
-import { FaLock } from "react-icons/fa";
-import { HiOutlineMail } from "react-icons/hi";
-import { GoogleLogin } from "react-google-login";
-import { gapi } from "gapi-script";
-import { clientId } from "../../_auth/LoginGoogle";
-import axios from "axios";
 var querystring = require("querystring");
+// eslint-disable-next-line import/first
+import { useNavigate } from "react-router-dom";
+// eslint-disable-next-line import/first
+import "./Login.css";
+// eslint-disable-next-line import/first
+import Logocentral from "../../_assets/img/logoredonda.png";
+// eslint-disable-next-line import/first
+import LisenseContext from "../../_context/LisenseContext";
+
+// eslint-disable-next-line import/first
+import { FaLock } from "react-icons/fa";
+
+// eslint-disable-next-line import/first
+import { HiOutlineMail } from "react-icons/hi";
+
+// eslint-disable-next-line import/first
+
+// eslint-disable-next-line import/first
+import { gapi } from "gapi-script";
+
+// eslint-disable-next-line import/first
+import { clientId } from "../../_auth/LoginGoogle";
+
+// eslint-disable-next-line import/first
+import axios from "axios";
+
+// eslint-disable-next-line import/first
+
+
 export default function Login() {
   const navigate = useNavigate();
   const [userData, setUserData] = React.useState({ email: "", password: "" });
@@ -56,6 +75,7 @@ export default function Login() {
         axios.get("https://dev.li-sense.xyz/api/v1/usuarios/").then((res) => {
           res.data.map((email) => {
             if (email.email == userData.email) {
+              localStorage.setItem('userId', email.id)
               setUser(email);
               navigate('/')
             }
@@ -147,18 +167,7 @@ export default function Login() {
           <p className="entarg">
             <a>Ou</a>
           </p>
-          <button type="submit" className="btn1G">
-            <div className="content-btn1">
-              <GoogleLogin
-                clientId={clientId}
-                buttonText="Login"
-                onSuccess={onSuccess}
-                onFailure={onFailure}
-                cookiePolicy={"single_host_origin"}
-                isSignedIn={true}
-              />
-            </div>
-          </button>
+          
         </div>
       </div>
     </div>

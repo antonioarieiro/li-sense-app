@@ -1,24 +1,61 @@
 import React from "react";
 import "./editprod.css";
 import { useNavigate } from "react-router-dom";
-
+import LisenseContext from "../../_context/LisenseContext";
+import axios from "axios";
+import {_web3} from '../../_service/Web3Storage'
 export default function EditProduct(props) {
+  const {currentProduct} = React.useContext(LisenseContext)
   const { product } = props;
+  const [name, setName] = React.useState("");
+  const [descricao, setDescricao] = React.useState("");
+  const [isErr, setIsErr] = React.useState("");
+  const [preco, setPreco] = React.useState("");
+  const [detalhes, setDetalhes] = React.useState("");
+  const [categoria, setCategoria] = React.useState("");
+  const [productImage, setProductImage] = React.useState("");
+
   const navigate = useNavigate();
-  console.log(product);
-  function funcao1() {
-    alert("Produto Salvo!");
-    this.reset();
-  }
-  function funcao2() {
-    alert("Alterações Canceladas!");
-    navigate("/");
+
+  const editProduct = async () => {
+    let data = {
+      nome: name,
+      descricao: descricao,
+      preco: preco,
+      detalhes: detalhes,
+      categoria: categoria,
+      imagem_produto: productImage
+    };
+    const auth = localStorage.getItem("token");
+    axios
+      .put(`https://dev.li-sense.xyz/api/v1/produtos/${currentProduct.id}`, data, {
+        headers: {
+          Authorization: auth,
+        },
+      })
+      .then(function (response) {
+        if (response.status) {
+          alert(`Produto ${response.data.nome} Editado com sucesso`);
+          navigate("/");
+        }
+      })
+      .catch((_err) => {
+        setIsErr(_err.response.data.detail);
+      });
+  };
+  const uploadImage = async (file) => {
+    let name = file.files[0].name.toString()
+    console.log("name", name)
+  let request =  await _web3.uploadNewFile(file.files, name)
+  console.log(request)
+  setProductImage(request)
+
   }
 
 
   return (
     <>
-      <form>
+      <div>
         <div className="container-all-edit">
           <span className="tilte-prod">Editar Informações do Produto</span>
           <div className="container-imagem-produto">
@@ -28,25 +65,22 @@ export default function EditProduct(props) {
               </label>
 
               <input
-                onchange="readURL(this);"
+           
                 type="file"
                 name="picture-input"
                 id="picture-input"
                 multiple
+                onChange={(event) => {uploadImage(event.target)}}
               ></input>
             </div>
 
             <div className="new-infos-prod">
               <label className="infos-prod-l">Nome do Produto</label>
-              <input className="new-prod" placeholder="Pedro sampaio"></input>
+              <input className="new-prod" onChange={(event) => {setName(event.target.value)}} placeholder={currentProduct.nome}></input>
               <label className="infos-prod-l">Preço</label>
-              <input className="new-prod" placeholder="R$ 00,00"></input>
-              <label className="infos-prod-l">Classificação do Produto</label>
-              <select className="op-cat" id="mySelect" onchange="myFunction()">
-                <option>Arte</option>
-                <option value="Livro">Livro</option>
-                <option value="Música">Música</option>
-              </select>
+              <input className="new-prod"  onChange={(event) => {setPreco(event.target.value)}} placeholder={currentProduct.preco}></input>
+              <label className="infos-prod-l">Categoria do Produto</label>
+              <input className="new-prod" onChange={(event) => {setCategoria(event.target.value)}}  placeholder={currentProduct.categoria}></input>
             </div>
           </div>
           <div className="container-detalhes">
@@ -58,36 +92,21 @@ export default function EditProduct(props) {
             <textarea
               className="detalhes-produto"
               placeholder="digite aqui..."
+              onChange={(event) => {setDescricao(event.target.value)}}  
             />
           </div>
-          <div className="container-detalhes-1">
-            <div className="d1">
-              <label>Quantidade em estoque</label>
-              <input
-                className="input-qt-est"
-                type="number"
-                min={0}
-                placeholder="quantidade em estoque"
-              />
-              {/* <GiCardboardBoxClosed  size={20} className="icon-caixa" /> */}
-              <label>Data de Validade do Certificado</label>
-              <input className="input-qt-est" type="date" />
-
-              <label>Outros</label>
-              <input className="input-qt-est" type="text" placeholder="" />
-            </div>
-          </div>
+         
 
           <div className="botoes">
-            <button className="btn-salvar" onClick={funcao1}>
+            <button className="btn-salvar" onClick={() => {editProduct()}}>
               Salvar
             </button>
-            <button className="btn-cancelar" onClick={funcao2}>
+            <button className="btn-cancelar" onClick={() => {window.history.back()}}>
               Cancelar
             </button>
           </div>
         </div>
-      </form>
+      </div>
     </>
   );
 }

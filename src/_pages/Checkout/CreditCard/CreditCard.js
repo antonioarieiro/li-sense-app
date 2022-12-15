@@ -7,7 +7,8 @@ export default function PaymentForm() {
   const navigate = useNavigate();
   const [cartao, setCartao] = useState("");
   function funcao1() {
-    alert("Cartão adicionado!");
+    alert("Parabens! sua compra esta em analise e em breve sera processada");
+    navigate('/profile')
   }
  
   return (
@@ -25,7 +26,7 @@ export default function PaymentForm() {
 
                 <input
                   type="caracter"
-                  maxlength="19"
+                  maxLength="19"
                   className="form-control-dat-tel"
                   placeholder="0000.0000.0000.0000"
                 />
@@ -84,7 +85,7 @@ export default function PaymentForm() {
                 funcao1();
               }}
             >
-              Adicionar Cartão
+              Pagar com Cartão
             </button>
             <button
               type="submit"

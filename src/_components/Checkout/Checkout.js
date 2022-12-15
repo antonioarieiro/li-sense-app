@@ -1,30 +1,31 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import "./checkout.css";
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import './checkout.css'
 
 export default function Checkout(props) {
-  const { cart } = props;
+  const { cart } = props
   const [price, setPrice] = React.useState(0)
   const setCartPrice = () => {
-    let init = 0;
-    if(cart) {
-      // eslint-disable-next-line array-callback-return
-      cart.map((value) => {
+    let init = 0
+    if (cart) {
+      cart.map(value => {
         // eslint-disable-next-line no-unused-expressions
-        parseInt(value.preco) ?  init += parseInt(value.preco) : ''
+        parseInt(value.preco) ? (init += parseInt(value.preco)) : ''
       })
       setPrice(init)
     }
   }
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   React.useEffect(() => {
     setCartPrice()
-  },[])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cart])
   return (
     <>
       <div className="container-checkout">
         <h1>Resumo do pedido</h1>
+        <hr />
 
         <div className="text1">
           <p>Produtos</p>
@@ -44,13 +45,13 @@ export default function Checkout(props) {
           </div>
           <div className="text4">
             <p>R$ {price},00 no boleto</p>
-            <p>R${price},00 em  ate 5x no cartão de credito</p>
+            <p>R${price},00 em ate 5x no cartão de credito</p>
           </div>
         </div>
         <div className="container-button-res">
           <button
             onClick={() => {
-              navigate("/cart/payment");
+              navigate('/cart/payment')
             }}
           >
             Continuar
@@ -58,5 +59,5 @@ export default function Checkout(props) {
         </div>
       </div>
     </>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './DropDownUserItens.css'
 import LisenseContext from '../../_context/LisenseContext'
@@ -9,8 +9,7 @@ function DropDownUserItens(props) {
   const onSuccess = () => {
     setUser(false)
     console.log('Success logout')
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useNavigate('/home')
+   
   }
   const { setUser } = React.useContext(LisenseContext);
 
@@ -19,14 +18,7 @@ function DropDownUserItens(props) {
       
       <i>{props.icon}</i>
       <span>{props.text}</span>
-      {
-        props.text === 'Sair da conta' &&
-        <GoogleLogout
-      clientId={clientId}
-      buttonText={'Logout'}
-      onLogoutSuccess={onSuccess}
-      />
-      }
+    
     </div>
   )
 }
