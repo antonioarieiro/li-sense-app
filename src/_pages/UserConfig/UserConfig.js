@@ -40,7 +40,7 @@ export default function UserConfig() {
     }
     axios.put(`https://dev.li-sense.xyz/api/v1/usuarios/${id}`, data).then((res) => {
       alert('Dados alterados com sucesso')
-      window.location.reload()
+      window.location.href = 'https://prismatic-kleicha-543149.netlify.app/'
 
     });
   
