@@ -47,18 +47,7 @@ export default function Header() {
           </a>
         </div>
         <div className="col-search">
-          <form action="#">
-            <div className="search-box">
-              <input type="search" placeholder="Faça sua busca" onChange={(event) => {setCurrentSearch(event.target.value)}}/>
-              <button type="submit">
-                <i onClick={() => {
-                  navigate('/search')
-                }}>
-                  <FaSearch />
-                </i>
-              </button>
-            </div>
-          </form>
+         
         </div>
         <div className="col-cart">
           <nav>
