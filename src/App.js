@@ -36,7 +36,7 @@ function Main() {
         res.data.map((value) => {
           if(value.usuario_id == verifyUser) {
             setSeller(true);
-            setCompany(res.data)
+            setCompany(value)
           }
         })
        }

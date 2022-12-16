@@ -64,7 +64,6 @@ export default function Login() {
         localStorage.setItem("token", `Bearer ${response.data.access_token}`);
         axios.get("https://dev.li-sense.xyz/api/v1/usuarios/").then((res) => {
           res.data.map((email) => {
-            console.log("email", email)
             if (email.email == userData.email) {
               localStorage.setItem('userId', email.id)
               setUser(email);
