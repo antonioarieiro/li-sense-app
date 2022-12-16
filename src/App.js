@@ -29,12 +29,17 @@ function Main() {
   const verifySeller = async () => {
     var verifyUser = localStorage.getItem("userId");
     await axios
-      .get(`https://dev.li-sense.xyz/api/v1/vendedor/${verifyUser}`)
+      .get(`https://dev.li-sense.xyz/api/v1/vendedor`)
       .then((res) => {
-        if (res.data) {
-          setSeller(true);
-          setCompany(res.data)
-        }
+       console.log("res", res)
+       if(res.data) {
+        res.data.map((value) => {
+          if(value.usuario_id == verifyUser) {
+            setSeller(true);
+            setCompany(res.data)
+          }
+        })
+       }
       })
       .catch((err) => {
       

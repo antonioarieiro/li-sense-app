@@ -22,7 +22,7 @@ export default function SendEmailRecovery(props) {
         alert(`Foi enviado um link de recuperação para o email ${email}`);
       })
       .catch((_err) => {
-        alert(_err.response.data.detail);
+        alert('Caso email corresponda a um usuariom da plataforma enviaremos um link para caixa de entrada');
       });
   };
 

@@ -5,7 +5,7 @@ import "./Product.css";
 import { Components } from "../../_components/Components";
 
 import { FaRegBookmark } from "react-icons/fa";
-import { AiFillEdit } from "react-icons/ai";
+import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
@@ -51,12 +51,19 @@ export default function ProductDetails() {
   }
 
   const getOwner = async( ) => {
-    axios.get(`https://dev.li-sense.xyz/api/v1/vendedor/${currentProduct.id}`).then((res) => {
-      setOwner(res.data.nome)
-      console.log("res", res)
+    axios.get(`https://dev.li-sense.xyz/api/v1/vendedor/${currentProduct.vendedor_id}`).then((res) => {
+     setOwner(res.data.nome)
     })
   }
 
+
+  const deletProduct = async(id) => {
+    axios.get(`https://dev.li-sense.xyz/api/v1/produtos/${id}`).then((res) => {
+     alert('Produto apagado com sucesso')
+    }).catch((err) => {
+      alert('Ops algo deu errado, tente novamente mais tarde.')
+    })
+  }
 
   return (
     <>
@@ -77,6 +84,15 @@ export default function ProductDetails() {
               }}
             />
           }
+          {
+            isOwner &&
+            <AiFillDelete
+            className={"productCard__wishlist"}
+            onClick={() => {
+              deletProduct(currentProduct.id)
+            }}
+          />
+          }
             
           </div>
 
@@ -85,17 +101,17 @@ export default function ProductDetails() {
           </div>
           <hr className="solid"></hr>
           <div className="container-info-box">
-            <p className="field-info">Id do produto: {currentProduct.id}</p>
+            <p className="field-info">Id do produto: <b> {currentProduct.id}</b></p>
             <p className="field-info">
-              Tipo de licença: {currentProduct.sale_type}
+              Tipo de licença: <b>{currentProduct.categoria}</b>
             </p>
-            <p className="field-info">Vendido por: {owner}</p>
+            <p className="field-info">Vendido por: <b>{owner}</b></p>
           </div>
           <div className="container-sale-box">
             <span className="sp1">
               <p>Valor para compra em definitivo:</p>
             </span>
-            <p className="sale-price">{currentProduct.preco}</p>
+            <p className="sale-price"><b>{currentProduct.preco}</b></p>
             <div></div>
             <button className="buy-button" onClick={() => {  addItemInCart(currentProduct)}}>Adquirir Licença</button>
           </div>

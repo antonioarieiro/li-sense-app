@@ -24,8 +24,7 @@ export default function Boleto() {
                 className="form-boleto"
                 placeholder="nome completo"
               />
-              <span className="span-boleto">CNPJ</span>
-              <input type="number" className="form-boleto" placeholder="cnpj" />
+            
               <span className="span-boleto">CPF</span>
               <input type="cpf" className="form-boleto" placeholder="cpf" />
               <span className="span-boleto">Data de pagamento</span>
@@ -34,12 +33,7 @@ export default function Boleto() {
                 className="form-boleto"
                 placeholder="data de pagamento"
               />
-              <span className="span-boleto">Valor total</span>
-              <input
-                type=""
-                className="form-boleto"
-                placeholder="valor total"
-              />
+              
               <div className="btn-boleto-div">
                 <button className="btn-boleto" onClick={funcaoB}>
                   Gerar Boleto

@@ -8,6 +8,7 @@ export default function RegisterNewPassword(props) {
   const togglePasswordCad = () => {
     setIsSHown((isShown) => !isShown);
   };
+  console.log("window.",window.location.href.toString().split('/')[4])
   return (
     <>
       <div className="flex flex-row items-center justify-center">

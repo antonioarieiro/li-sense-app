@@ -44,17 +44,7 @@ export default function Login() {
     gapi.load("client:auth2", start);
   }, []);
 
-  const onSuccess = (res) => {
-    console.log("LOGIN SUCCESS", res);
-    setUser(res);
-    if (res) {
-      navigate("/profile");
-    }
-  };
 
-  const onFailure = (res) => {
-    console.log("LOGIN FAIL", res);
-  };
 
   const userLogin = async () => {
     axios
@@ -74,6 +64,7 @@ export default function Login() {
         localStorage.setItem("token", `Bearer ${response.data.access_token}`);
         axios.get("https://dev.li-sense.xyz/api/v1/usuarios/").then((res) => {
           res.data.map((email) => {
+            console.log("email", email)
             if (email.email == userData.email) {
               localStorage.setItem('userId', email.id)
               setUser(email);

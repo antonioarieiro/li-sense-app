@@ -24,14 +24,17 @@ export default function CreatProtduct(props) {
       categoria: categoria,
       imagem_produto: productImage
     };
+
     const auth = localStorage.getItem("token");
     axios
       .post("https://dev.li-sense.xyz/api/v1/produtos/registra-produto", data, {
         headers: {
           Authorization: auth,
+          'Access-Control-Allow-Origin' : '*',
         },
       })
       .then(function (response) {
+        console.log('response', response)
         if (response.status) {
           alert(`Produto ${response.data.nome} Criado com sucesso`);
           navigate("/");
@@ -44,9 +47,7 @@ export default function CreatProtduct(props) {
 
   const uploadImage = async (file) => {
     let name = file.files[0].name.toString()
-    console.log("name", name)
   let request =  await _web3.uploadNewFile(file.files, name)
-  console.log(request)
   setProductImage(request)
 
   }
